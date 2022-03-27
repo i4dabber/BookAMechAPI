@@ -1,7 +1,11 @@
-﻿namespace BookAMech.Domain
+﻿using System;
+
+namespace BookAMech.Domain
 {
     public class Reservation 
     {
-       public string Id { get; set; }
+       public Guid Id { get; set; }
+
+       public string Name { get; set; }
     }
 }

@@ -11,6 +11,7 @@
         public static class Reservations
         {
             public const string GetAll = Base + "/reservations";
+
             public const string Get = Base + "/reservations/{reservationId}";
 
             public const string Create = Base + "/reservations";
