@@ -14,6 +14,10 @@
 
             public const string Get = Base + "/reservations/{reservationId}";
 
+            public const string Update = Base + "/reservations/{reservationId}";
+
+            public const string Delete = Base + "/reservations/{reservationId}";
+
             public const string Create = Base + "/reservations";
         }
     }

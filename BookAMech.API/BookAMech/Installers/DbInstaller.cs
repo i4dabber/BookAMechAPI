@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BookAMech.Data;
 
 namespace BookAMech.Installers
 {
@@ -10,14 +11,14 @@ namespace BookAMech.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<Data.DbContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                options.UseSqlServer(
                    configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<Data.DbContext>();
+                .AddEntityFrameworkStores<DataContext>();
 
-
-            services.AddSingleton<IReservationService, ReservationService>();
+            //Add scoped means lifetime of Iservice and real service is the same, to track them
+            services.AddScoped<IReservationService, ReservationService>();
         }
     }
 }

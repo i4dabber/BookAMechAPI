@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookAMech.Controllers.V1
 {
@@ -20,33 +21,73 @@ namespace BookAMech.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.Reservations.GetAll)]
-        public IActionResult GetAllReservations()
+        public async Task<IActionResult> GetAllReservationsAsync()
         {
-            return Ok(_reservationService.GetAllReservation());
+            return Ok(await _reservationService.GetAllReservationAsync());
         }
 
         [HttpGet(ApiRoutes.Reservations.Get)]
-        public IActionResult GetReservation([FromRoute]Guid reservationId)
+        public async Task<IActionResult> GetReservationAsync([FromRoute] Guid reservationId)
         {
-            var reservation = _reservationService.GetReservationById(reservationId);
+            var reservation = await _reservationService.GetReservationByIdAsync(reservationId);
 
-            if(reservation == null)
-                return NotFound();  
+            if (reservation == null)
+                return NotFound();
 
             return Ok(reservation);
         }
 
+        [HttpPut(ApiRoutes.Reservations.Update)]
+        public async Task<IActionResult> UpdateReservationAsync([FromRoute]Guid reservationId, [FromBody] UpdateReservationRequest request)
+        {
+            var reservation = new Reservation
+            {
+                Id = reservationId,
+                CustomerName = request.CustomerName,
+                CompanyName = request.CompanyName,
+                StreetAddress = request.StreetAddress,
+                StreetNumber = request.StreetNumber,
+                Phonenumber = request.Phonenumber
+             
+            };    
+
+            var updated = await _reservationService.UpdateReservationAsync(reservation);  
+
+            if(updated)
+                return Ok(reservation);
+
+            return NotFound();
+        }
+
+        [HttpDelete(ApiRoutes.Reservations.Delete)]
+        public async Task<IActionResult> DeleteReservationAsync([FromRoute] Guid reservationId)
+        {
+            var deleted = await _reservationService.DeleteReservationAsync(reservationId);
+
+            if (deleted)
+                return NoContent();
+
+            return NotFound();
+        }
+
 
         [HttpPost(ApiRoutes.Reservations.Create)]
-        public IActionResult CreateReservation([FromBody] CreateReservationRequest reservationRequest)
+        public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequest reservationRequest)
         {
 
-            var reservation = new Reservation { Id = reservationRequest.Id };
+            var reservation = new Reservation 
+            {               
+                CustomerName = reservationRequest.CustomerName,
+                CompanyName = reservationRequest.CompanyName,
+                StreetAddress = reservationRequest.StreetAddress,
+                StreetNumber = reservationRequest.StreetNumber,
+                Phonenumber = reservationRequest.Phonenumber,
+                startDate = reservationRequest.startDate
+            };
 
-            if(reservation.Id != Guid.Empty)
-                reservation.Id = Guid.NewGuid();
+          
 
-            _reservationService.GetAllReservation().Add(reservation);
+            await _reservationService.CreateReservationAsync(reservation);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Reservations.Get.Replace("{reservationId}", reservation.Id.ToString());

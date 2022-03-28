@@ -1,34 +1,57 @@
-﻿using BookAMech.Domain;
+﻿using BookAMech.Data;
+using BookAMech.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookAMech.Services
 {
     public class ReservationService : IReservationService
     {
-        private readonly List<Reservation> _reservations;
+        private readonly DataContext _context;
 
-        public ReservationService()
+        public ReservationService(DataContext context)
         {
-            _reservations = new List<Reservation>();
-            for (var i = 0; i < 5; i++)
-            {
-                _reservations.Add(new Reservation
-                {
-                    Id = Guid.NewGuid(),
-                    Name = $"Test name {i}"
-                });
-            }
-        }
-        public List<Reservation> GetAllReservation()
-        {
-            return _reservations;
+            _context = context; 
         }
 
-        public Reservation GetReservationById(Guid reservationId)
+        public async Task<List<Reservation>> GetAllReservationAsync()
         {
-            return _reservations.SingleOrDefault(x => x.Id == reservationId);
+            return await _context.Reservations.ToListAsync();
+        }
+
+        public async Task<Reservation> GetReservationByIdAsync(Guid reservationId)
+        {
+            return await _context.Reservations.SingleOrDefaultAsync(x => x.Id == reservationId);
+        }
+
+        public async Task<bool> CreateReservationAsync(Reservation reservation)
+        {
+            await _context.Reservations.AddAsync(reservation);
+            var created = await _context.SaveChangesAsync();
+            return created > 0;
+
+        }
+
+        public async Task<bool> UpdateReservationAsync(Reservation reservationToUpdate)
+        {
+            _context.Reservations.Update(reservationToUpdate);
+            var updated = await _context.SaveChangesAsync();
+            return updated > 0; // IF WE HAVE AN UPDATED ITEM RETURN TRUE OR FALSE
+        }
+
+        public async Task<bool> DeleteReservationAsync(Guid reservationId)
+        {
+            var reservation = await GetReservationByIdAsync(reservationId);
+
+            if(reservation == null)
+                return false;
+            
+            _context.Reservations.Remove(reservation);
+            var deleted = await _context.SaveChangesAsync();
+            return deleted > 0;
         }
     }
 }
