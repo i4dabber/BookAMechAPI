@@ -53,5 +53,23 @@ namespace BookAMech.Services
             var deleted = await _context.SaveChangesAsync();
             return deleted > 0;
         }
+
+        public async Task<bool> userOwnReservationAsync(Guid reservationId, string userId)
+        {
+            //AsNoTracking() avoid conflict while we are doing CRUD
+            var reservation = await _context.Reservations.AsNoTracking().SingleOrDefaultAsync(x => x.Id == reservationId);
+
+            if(reservation == null)
+            {
+                return false;
+            }
+           
+            if(reservation.UserId != userId )
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

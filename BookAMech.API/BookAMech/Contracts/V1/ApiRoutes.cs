@@ -20,5 +20,12 @@
 
             public const string Create = Base + "/reservations";
         }
+
+        public static class Users
+        {
+            public const string Login = Base + "/user/login";
+
+            public const string Register = Base + "/user/register";
+        }
     }
 }

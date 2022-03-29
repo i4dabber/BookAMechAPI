@@ -34,6 +34,8 @@ namespace BookAMech
             {               
                 app.UseHsts();
             }
+            //Authentication middleware
+            app.UseAuthentication();
 
             var swaggerOptions = new SwaggerOptions();
             Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);

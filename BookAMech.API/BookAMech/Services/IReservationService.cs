@@ -16,5 +16,7 @@ namespace BookAMech.Services
         Task<bool> UpdateReservationAsync(Reservation reservationToUpdate);
 
         Task<bool> DeleteReservationAsync(Guid Id);
+
+        Task<bool> userOwnReservationAsync(Guid reservationId, string getUserId);
     }
 }
