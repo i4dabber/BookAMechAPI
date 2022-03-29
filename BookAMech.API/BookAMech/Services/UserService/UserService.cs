@@ -1,5 +1,4 @@
 ﻿using BookAMech.Domain;
-using BookAMech.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System;
+using BookAMech.Settings;
 
 namespace BookAMech.Services
 {

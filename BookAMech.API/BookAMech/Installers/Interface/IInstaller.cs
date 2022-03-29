@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookAMech.Installers
+namespace BookAMech.Installers.Interface
 {
     public interface IInstaller
     {

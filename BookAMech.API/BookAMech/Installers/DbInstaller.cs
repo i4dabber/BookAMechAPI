@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BookAMech.Data;
+using BookAMech.Installers.Interface;
 
 namespace BookAMech.Installers
 {
@@ -18,6 +19,8 @@ namespace BookAMech.Installers
                 .AddEntityFrameworkStores<DataContext>();
 
             //Add scoped means lifetime of Iservice and real service is the same, to track them
+
+            //Service registration
             services.AddScoped<IReservationService, ReservationService>();
         }
     }

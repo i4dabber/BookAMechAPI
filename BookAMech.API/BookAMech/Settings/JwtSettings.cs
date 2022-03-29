@@ -1,4 +1,4 @@
-﻿namespace BookAMech.Options
+﻿namespace BookAMech.Settings
 {
     public class JwtSettings
     {

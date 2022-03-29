@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BookAMech.Installers.Interface;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace BookAMech.Installers
+namespace BookAMech.Extensions
 {
     public static class InstallerExtensions
     {

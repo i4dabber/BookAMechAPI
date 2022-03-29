@@ -33,10 +33,9 @@ namespace BookAMech.Controllers.V1
         [HttpGet(ApiRoutes.Reservations.Get)]
         public async Task<IActionResult> GetReservationAsync([FromRoute] Guid reservationId)
         {
-
+            //Check for user owns reservation - Make user its user specific content
             var userOwnReservation = await _reservationService.userOwnReservationAsync(reservationId, HttpContext.GetUserId());
-
-            //Check for user owns reservation
+          
             if (!userOwnReservation)
             {
                 return BadRequest(new { error = "You do not own this reservation" });
@@ -62,15 +61,14 @@ namespace BookAMech.Controllers.V1
                 return BadRequest(new { error = "You do not own this reservation" });
             }
 
-            var reservation = new Reservation
-            {
-                Id = reservationId,
-                CustomerName = request.CustomerName,
-                CompanyName = request.CompanyName,
-                StreetAddress = request.StreetAddress,
-                StreetNumber = request.StreetNumber,
-                Phonenumber = request.Phonenumber       
-            };    
+            var reservation = await _reservationService.GetReservationByIdAsync(reservationId);
+            reservation.CustomerName = request.CustomerName;
+            reservation.CompanyName = request.CompanyName;
+            reservation.StreetAddress = request.StreetAddress;
+            reservation.StreetNumber = request.StreetNumber;
+            reservation.Phonenumber = request.Phonenumber;
+            reservation.startDate = DateTime.UtcNow;
+            reservation.UserId = HttpContext.GetUserId();
 
             var updated = await _reservationService.UpdateReservationAsync(reservation);  
 
@@ -80,6 +78,11 @@ namespace BookAMech.Controllers.V1
             return NotFound();
         }
 
+        /// <summary>
+        /// Deletes a specific Reservation.
+        /// </summary>
+        /// <param name="reservationId"></param>
+        /// <returns></returns>
         [HttpDelete(ApiRoutes.Reservations.Delete)]
         public async Task<IActionResult> DeleteReservationAsync([FromRoute] Guid reservationId)
         {

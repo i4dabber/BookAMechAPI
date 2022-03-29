@@ -1,5 +1,6 @@
-﻿using BookAMech.Options;
+﻿using BookAMech.Installers.Interface;
 using BookAMech.Services;
+using BookAMech.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

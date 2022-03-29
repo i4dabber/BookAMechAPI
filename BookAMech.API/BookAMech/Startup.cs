@@ -1,10 +1,11 @@
-using BookAMech.Options;
+using BookAMech.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BookAMech.Installers;
+using BookAMech.Settings;
 
 namespace BookAMech
 {
@@ -37,7 +38,7 @@ namespace BookAMech
             //Authentication middleware
             app.UseAuthentication();
 
-            var swaggerOptions = new SwaggerOptions();
+            var swaggerOptions = new SwaggerSettings();
             Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);
 
             app.UseSwagger(option =>
@@ -60,10 +61,7 @@ namespace BookAMech
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
