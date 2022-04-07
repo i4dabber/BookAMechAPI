@@ -20,6 +20,18 @@ namespace BookAMech.Installers
 
             services.AddScoped<IUserService, UserService>();
 
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true, //Used to check for correct secret
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)), //Encodes the secret since its in binary
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateLifetime = true
+            };
+
+            services.AddSingleton(tokenValidationParameters); //Allows to get the value from the services pipeline
+
             //Authentication
             services.AddAuthentication(x =>
             {
@@ -30,14 +42,7 @@ namespace BookAMech.Installers
                 .AddJwtBearer(x => //Bearer token validation
                 {
                     x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true, //Used to check for correct secret
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)), //Encodes the secret since its in binary
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true
-                    }; 
+                    x.TokenValidationParameters = tokenValidationParameters;
                 });
         }
     }

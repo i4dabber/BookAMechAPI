@@ -15,5 +15,7 @@ namespace BookAMech.Data
         }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }  
     }
 }

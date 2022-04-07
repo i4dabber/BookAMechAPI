@@ -14,6 +14,7 @@ using BookAMech.Extensions;
 
 namespace BookAMech.Controllers.V1
 {
+    [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //Everything accessed for this controller needs a valid token
     public class ReservationsController : Controller
     {
@@ -29,6 +30,7 @@ namespace BookAMech.Controllers.V1
         {
             return Ok(await _reservationService.GetAllReservationAsync());
         }
+  
 
         [HttpGet(ApiRoutes.Reservations.Get)]
         public async Task<IActionResult> GetReservationAsync([FromRoute] Guid reservationId)

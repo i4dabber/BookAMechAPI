@@ -26,6 +26,8 @@
             public const string Login = Base + "/user/login";
 
             public const string Register = Base + "/user/register";
+
+            public const string Refresh = Base + "/user/refresh";
         }
     }
 }
