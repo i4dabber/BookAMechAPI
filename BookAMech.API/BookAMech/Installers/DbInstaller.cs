@@ -21,7 +21,7 @@ namespace BookAMech.Installers
             //Add scoped means lifetime of Iservice and real service is the same, to track them
 
             //Service registration
-            services.AddScoped<IReservationService, ReservationService>();
+            //services.AddScoped<IReservationService, ReservationService>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BookAMech.Contracts.V1.Requests
+﻿using System;
+
+namespace BookAMech.Contracts.V1.Requests
 {
     public class UpdateReservationRequest
     {
@@ -11,6 +13,7 @@
         public int StreetNumber { get; set; }
 
         public int Phonenumber { get; set; }
-        
+
+        public DateTime startDate { get; set; }
     }
 }

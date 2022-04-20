@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookAMech.Extensions;
+using AutoMapper;
 
 namespace BookAMech.Controllers.V1
 {
@@ -19,16 +20,21 @@ namespace BookAMech.Controllers.V1
     public class ReservationsController : Controller
     {
         private readonly IReservationService _reservationService;
+        private readonly IMapper _mapper;
 
-        public ReservationsController(IReservationService reservationService)
+        public ReservationsController(IReservationService reservationService, IMapper mapper)
         {
-            _reservationService = reservationService;   
+            _reservationService = reservationService;
+            _mapper = mapper;
         }
 
         [HttpGet(ApiRoutes.Reservations.GetAll)]
         public async Task<IActionResult> GetAllReservationsAsync()
         {
-            return Ok(await _reservationService.GetAllReservationAsync());
+
+            var reservations = await _reservationService.GetAllReservationAsync();
+            var reservationResponse = _mapper.Map<List<ReservationResponse>>(reservations);
+            return Ok(reservationResponse);
         }
   
 
@@ -48,7 +54,7 @@ namespace BookAMech.Controllers.V1
             if (reservation == null)
                 return NotFound();
 
-            return Ok(reservation);
+            return Ok(_mapper.Map<ReservationResponse>(reservation));
         }
 
         [HttpPut(ApiRoutes.Reservations.Update)]
@@ -75,9 +81,10 @@ namespace BookAMech.Controllers.V1
             var updated = await _reservationService.UpdateReservationAsync(reservation);  
 
             if(updated)
-                return Ok(reservation);
+                return Ok(_mapper.Map<UpdateReservationRequest>(reservation));
 
-            return NotFound();
+            return NotFound(); 
+
         }
 
         /// <summary>
@@ -121,13 +128,12 @@ namespace BookAMech.Controllers.V1
             };
 
           
-
             await _reservationService.CreateReservationAsync(reservation);
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Reservations.Get.Replace("{reservationId}", reservation.Id.ToString());
 
-            var response = new ReservationResponse { Id = reservation.Id };
+            var response = _mapper.Map<CreateReservationRequest>(reservation);
             return Created(locationUri, response);
         }
     }

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BookAMech.IntegrationTests": {
+      "commandName": "Project",
+      "sqlDebugging": true,
+      "nativeDebugging": true
+    }
+  }
+}

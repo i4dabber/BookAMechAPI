@@ -18,7 +18,7 @@ namespace BookAMech.Installers
             services.AddSingleton(jwtSettings);
 
 
-            services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IUserService, UserService>();
 
             var tokenValidationParameters = new TokenValidationParameters
             {

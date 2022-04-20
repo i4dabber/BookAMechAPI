@@ -10,6 +10,7 @@ using System;
 using BookAMech.Settings;
 using BookAMech.Data;
 using Microsoft.EntityFrameworkCore;
+using BookAMech.Extensions;
 
 namespace BookAMech.Services
 {
