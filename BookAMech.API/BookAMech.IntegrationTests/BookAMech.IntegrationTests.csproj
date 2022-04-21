@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookAMech.SDK.Contracts\BookAMech.Contracts.csproj" />
     <ProjectReference Include="..\BookAMech\BookAMech.API.csproj" />
   </ItemGroup>
 

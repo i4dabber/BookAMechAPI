@@ -5,7 +5,13 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAMech.API", "BookAMech\BookAMech.API.csproj", "{4DB04E08-C66F-4CFA-A0BB-8FF0F1141CF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAMech.IntegrationTests", "BookAMech.IntegrationTests\BookAMech.IntegrationTests.csproj", "{3CFA6A3E-FDF0-422D-A32E-7F39AFF761D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAMech.IntegrationTests", "BookAMech.IntegrationTests\BookAMech.IntegrationTests.csproj", "{3CFA6A3E-FDF0-422D-A32E-7F39AFF761D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAMech.SDK", "BookAMech.SDK\BookAMech.SDK.csproj", "{C3D40316-EAFC-41AA-8EB0-562FFCDDBDAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAMech.SDK.Sample", "BookAMech.SDK.Sample\BookAMech.SDK.Sample.csproj", "{3A76A719-9EB6-4228-8124-92F046302715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAMech.Contracts", "BookAMech.SDK.Contracts\BookAMech.Contracts.csproj", "{98693F1F-550D-4A48-82B2-39A69F2A9F4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{3CFA6A3E-FDF0-422D-A32E-7F39AFF761D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CFA6A3E-FDF0-422D-A32E-7F39AFF761D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CFA6A3E-FDF0-422D-A32E-7F39AFF761D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D40316-EAFC-41AA-8EB0-562FFCDDBDAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D40316-EAFC-41AA-8EB0-562FFCDDBDAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D40316-EAFC-41AA-8EB0-562FFCDDBDAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D40316-EAFC-41AA-8EB0-562FFCDDBDAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A76A719-9EB6-4228-8124-92F046302715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A76A719-9EB6-4228-8124-92F046302715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A76A719-9EB6-4228-8124-92F046302715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A76A719-9EB6-4228-8124-92F046302715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98693F1F-550D-4A48-82B2-39A69F2A9F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98693F1F-550D-4A48-82B2-39A69F2A9F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98693F1F-550D-4A48-82B2-39A69F2A9F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98693F1F-550D-4A48-82B2-39A69F2A9F4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
